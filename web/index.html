@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Shortcut Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <div class="title-container">
+        <h1 class="title">Shortcut Manager</h1>
+        <p>Manage your keyboard shortcuts and associated batch files</p>
+    </div>
+    <div class="table-container">
+        <div class="table-actions">
+            <button class="btn add-btn" onclick="openCreationDialog()">
+                <i style="width: 16px;" data-lucide="plus"></i>
+                <span>Add Shortcut</span>
+            </button>
+            <button class="btn light-btn">
+                <i style="width: 16px;" data-lucide="pencil"></i>
+                <span>Edit JSON</span>
+            </button>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Shortcut</th>
+                <th>Batch File</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="shortcutList">
+            <!-- Data will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Add Shortcut Modal -->
+<dialog id="creationDialog" class="creationDialog">
+    <div class="wrapper">
+        <div class="header">
+            <button id="closeBtn" class="close" onclick="closeCreationDialog()">
+                <i data-lucide="x"></i>
+            </button>
+            <h2>Add New Shortcut</h2>
+            <p class="info">Enter the details for your new shortcut.</p>
+        </div>
+        <div class="body">
+            <div class="input-container">
+                <form onsubmit="addShortcut(); return false;">
+                    <div class="item">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" oninput="validateForm()" placeholder="Shortcut Name">
+                    </div>
+                    <div class="item">
+                        <label for="shortcut">Shortcut</label>
+                        <input type="text"
+                               id="shortcut"
+                               placeholder="Press shortcut keys"
+                               readonly
+                               onclick="startShortcutScan()"
+                               oninput="validateForm()"
+                        >
+                    </div>
+                    <div class="item">
+                        <label for="batch">Existing Batch File?</label>
+                        <div class="batchInput">
+                            <input type="text" id="batch" placeholder="Path..." onclick="editShortcut()">
+                            <button>
+                                <i style="width: 16px;" data-lucide="pencil"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <hr class="vertical">
+            <div class="coding-container">
+                <div class="item">
+                    <label for="batchFileName">File Name</label>
+                    <input type="text" id="batchFileName" placeholder="File Name">
+                </div>
+                <div id="monaco-editor-container" class="monaco-editor-container"></div>
+            </div>
+        </div>
+        <div class="footer">
+            <button type="submit" id="addShortcutButton" class="btn add-btn" onclick="addShortcut()">Add Shortcut
+            </button>
+        </div>
+    </div>
+</dialog>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>
+<script src="eel.js"></script>
+<script src="script.js"></script>
+<script src="monaco-editor/min/vs/loader.js"></script>
+</body>
+</html>
